@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SEO Opportunities — Process Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --surface2: #1c2030;
+    --border: #272d3f;
+    --accent: #c8f04f;
+    --accent2: #4f8ef0;
+    --text: #e8eaf0;
+    --muted: #6b7290;
+    --step-done: #1e2e18;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  aside {
+    width: 280px;
+    min-height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+  }
+
+  .logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .logo span {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(200,240,79,0.1);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  nav { padding: 20px 0; flex: 1; }
+
+  .nav-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    padding: 8px 24px 6px;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--text);
+    background: rgba(255,255,255,0.03);
+    border-left-color: var(--accent);
+  }
+
+  nav a .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    width: 20px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  nav a.active .step-num { color: var(--accent); }
+
+  nav a .check {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  nav a.done .check {
+    background: var(--accent);
+    border-color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  nav a.done .check::after {
+    content: '✓';
+    font-size: 9px;
+    color: #0d0f14;
+    font-weight: bold;
+  }
+
+  .progress-bar-wrap {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* MAIN */
+  main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 0;
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .top-bar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .top-bar .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .nav-btns {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0d0f14;
+    font-weight: 500;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+
+  /* CONTENT */
+  .content {
+    padding: 48px;
+    max-width: 860px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .section-header p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h3 .icon {
+    font-size: 1rem;
+  }
+
+  .card p, .card li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .card ol, .card ul {
+    padding-left: 18px;
+    margin-top: 8px;
+  }
+
+  .card li { margin-bottom: 6px; }
+
+  /* Step checklist items */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .checklist li label {
+    cursor: pointer;
+    line-height: 1.5;
+  }
+
+  .checklist li.checked label {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  /* Video placeholder */
+  .video-placeholder {
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px;
+    text-align: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .video-placeholder:hover { border-color: var(--accent2); }
+
+  .video-placeholder .play-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .video-placeholder p {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .video-placeholder strong {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  /* Template links */
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .template-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    display: block;
+  }
+
+  .template-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-2px);
+  }
+
+  .template-card .t-icon { font-size: 1.4rem; margin-bottom: 8px; }
+  .template-card .t-title { font-size: 0.85rem; color: var(--text); font-weight: 500; margin-bottom: 4px; }
+  .template-card .t-desc { font-size: 0.75rem; color: var(--muted); }
+
+  /* Info box */
+  .info-box {
+    background: rgba(79, 142, 240, 0.08);
+    border: 1px solid rgba(79, 142, 240, 0.25);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 0.83rem;
+    color: #a8c4f5;
+    line-height: 1.65;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .info-box .info-icon { flex-shrink: 0; margin-top: 1px; }
+
+  .tip-box {
+    background: rgba(200, 240, 79, 0.06);
+    border: 1px solid rgba(200, 240, 79, 0.2);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    color: #d4f07a;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .tip-box strong { display: block; margin-bottom: 4px; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* Overview page special */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .overview-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .overview-step:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .overview-step .os-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.3rem;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .overview-step:hover .os-num { color: var(--accent); }
+
+  .overview-step h4 { font-size: 0.88rem; margin-bottom: 5px; }
+  .overview-step p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* Brief tabs */
+  .brief-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+
+  .brief-tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    padding: 10px 18px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+
+  .brief-tab:hover { color: var(--text); }
+  .brief-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .brief-panel { display: none; }
+  .brief-panel.active { display: block; }
+
+  .brief-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+
+  .brief-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+
+  .brief-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+
+  .brief-card p:last-child { margin-bottom: 0; }
+
+  .blank {
+    display: inline-block;
+    width: 80px;
+    border-bottom: 1px solid var(--muted);
+    margin: 0 2px;
+    vertical-align: bottom;
+    height: 1em;
+  }
+
+  /* Code/mono snippet */
+  .mono-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    background: var(--surface2);
+    color: var(--accent2);
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside>
+  <div class="logo">
+    <h1>SEO Opportunities<br/>Process Guide</h1>
+    <span>Internal Handoff Doc</span>
+  </div>
+
+  <nav>
+    <div class="nav-section-label">Overview</div>
+    <a href="#" class="active" data-section="overview">
+      <span class="step-num">—</span> Introduction
+      <span class="check"></span>
+    </a>
+
+    <div class="nav-section-label" style="margin-top:10px">Process Steps</div>
+    <a href="#" data-section="step1">
+      <span class="step-num">01</span> Slide Deck Construction
+      <span class="check"></span>
+    </a>
+    <a href="#" data-section="step2">
+      <span class="step-num">02</span> Technical Findings
+      <span class="check"></span>
+    </a>
+    <a href="#" data-section="step3">
+      <span class="step-num">03</span> Meta Data
+      <span class="check"></span>
+    </a>
+    <a href="#" data-section="step4">
+      <span class="step-num">04</span> On Page
+      <span class="check"></span>
+    </a>
+
+    <div class="nav-section-label" style="margin-top:10px">Resources</div>
+    <a href="#" data-section="templates">
+      <span class="step-num">—</span> Opportunity Briefs
+      <span class="check"></span>
+    </a>
+    <a href="#" data-section="exampledecks">
+      <span class="step-num">—</span> Example Decks
+      <span class="check"></span>
+    </a>
+    <a href="#" data-section="mastertemplate">
+      <span class="step-num">—</span> Master Template
+      <span class="check"></span>
+    </a>
+
+  </nav>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Your progress</span>
+      <span id="progress-text">0 / 4</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main>
+  <div class="top-bar">
+    <div>
+      <div class="breadcrumb" id="breadcrumb">Overview</div>
+      <h2 id="top-title">SEO Opportunities — Process Guide</h2>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" id="prev-btn" onclick="navigate(-1)">← Prev</button>
+      <button class="btn btn-primary" id="next-btn" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="overview">
+      <div class="section-header">
+        <div class="section-tag">Welcome</div>
+        <h2>How to Build the SEO Opportunities Deck</h2>
+        <p>This guide walks you through the full process of constructing the SEO Opportunities slide deck — from raw data to a polished, stakeholder-ready presentation. Work through each step in order, or jump to the section you need.</p>
+      </div>
+
+      <div class="info-box">
+        <span class="info-icon">ℹ️</span>
+        <span>This guide was written by the outgoing SEO specialist. It assumes familiarity with core SEO concepts and the tools listed in the <strong>Tools & Access</strong> section. Update this doc as the process evolves.</span>
+      </div>
+
+      <div class="overview-grid">
+        <div class="overview-step" onclick="goToSection('step1')">
+          <div class="os-num">01</div>
+          <div>
+            <h4>Slide Deck Construction</h4>
+            <p>How to structure, build, and format the SEO Opportunities deck from scratch.</p>
+          </div>
+        </div>
+        <div class="overview-step" onclick="goToSection('step2')">
+          <div class="os-num">02</div>
+          <div>
+            <h4>Technical Findings</h4>
+            <p>Identifying, documenting, and presenting technical SEO issues and opportunities.</p>
+          </div>
+        </div>
+        <div class="overview-step" onclick="goToSection('step3')">
+          <div class="os-num">03</div>
+          <div>
+            <h4>Meta Data</h4>
+            <p>Auditing and presenting meta title and description opportunities across the site.</p>
+          </div>
+        </div>
+        <div class="overview-step" onclick="goToSection('step4')">
+          <div class="os-num">04</div>
+          <div>
+            <h4>On Page</h4>
+            <p>Reviewing on-page elements — headings, content, internal linking, and alt text.</p>
+          </div>
+        </div>
+        <div class="overview-step" onclick="goToSection('templates')">
+          <div class="os-num">—</div>
+          <div>
+            <h4>Templates & Resources</h4>
+            <p>Slide templates, data export formats, and reference docs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section" id="step1">
+      <div class="section-header">
+        <div class="section-tag">Step 01</div>
+        <h2>Slide Deck Construction</h2>
+        <p>This step covers how to build the SEO Opportunities deck — the slide order, layout conventions, naming, and how to make it stakeholder-ready.</p>
+      </div>
+
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:20px;">
+        <iframe src="https://www.loom.com/embed/4ff091a23c704becb7305cffefd5679f" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">🖼️</span> Deck Structure</h3>
+        <p>The standard process for setting up the SEO Opportunities deck:</p>
+        <ol style="margin-top: 12px; padding-left: 18px;">
+          <li><strong>Copy the SEO Opportunities Slide Deck from a past deck</strong> — use a recent one as it will most likely match your current style.</li>
+          <li><strong>Replace the logo on the first page</strong> — swap out the client or company logo to match the current one.</li>
+          <li><strong>Replace the hero photo on the summary page</strong> — update the image to keep the deck feeling fresh and relevant.</li>
+        </ol>
+      </div>
+
+
+
+      <div class="tip-box">
+        <strong>💡 Specialist Tip</strong>
+        Add any notes about design conventions, what stakeholders pay most attention to, or common mistakes to avoid when building slides.
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section" id="step2">
+      <div class="section-header">
+        <div class="section-tag">Step 02</div>
+        <h2>Technical Findings</h2>
+        <p>How to identify, document, and present technical SEO issues and opportunities in the deck — what to look for, how to prioritise, and how to communicate it clearly.</p>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;">Competitor & Content Gap Analysis</p>
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:24px;">
+        <iframe src="https://www.loom.com/embed/bc64a40190b945e7aca7138fb4961c58" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;">Keywords & Page Traffic Distribution — Part 1</p>
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:24px;">
+        <iframe src="https://www.loom.com/embed/62cb0b5441ba4825ba892be3f53e9cbc" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;">Keywords & Page Traffic Distribution — Part 2</p>
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:24px;">
+        <iframe src="https://www.loom.com/embed/c9cf7acd66324499b81f99faa3d4451b" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">📋</span> Step Checklist</h3>
+        <ul class="checklist" id="checklist-step2">
+          <li><input type="checkbox" id="s2c1"><label for="s2c1">Upload the domain into Ahrefs and get a feel for the website by looking over key metrics — traffic, keywords, competitors, traffic/page distribution, etc.</label></li>
+          <li><input type="checkbox" id="s2c2"><label for="s2c2">Once you find your opportunities, screenshot the relevant data.</label></li>
+          <li><input type="checkbox" id="s2c3"><label for="s2c3">Place the screenshots into the Opportunities Deck.</label></li>
+          <li><input type="checkbox" id="s2c4"><label for="s2c4">Add in supporting text catered to the competency of the client — consider how much SEO knowledge they have when writing your commentary.</label></li>
+          <li><input type="checkbox" id="s2c5"><label for="s2c5">Ensure the slide looks neat and all key points are highlighted.</label></li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Specialist Tip</strong>
+        Add notes on which technical issues this site tends to have, which ones stakeholders care most about, and how to frame technical findings for a non-technical audience.
+      </div>
+
+
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section" id="step3">
+      <div class="section-header">
+        <div class="section-tag">Step 03</div>
+        <h2>Meta Data</h2>
+        <p>How to audit, assess, and present meta data opportunities — what to flag, how to prioritise pages, and how to write recommendations the team can act on.</p>
+      </div>
+
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:24px;">
+        <iframe src="https://www.loom.com/embed/f2b78b70db5f477cbbfb11b4f3430488" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">📋</span> Step Checklist</h3>
+        <ul class="checklist" id="checklist-step3">
+          <li><input type="checkbox" id="s3c1"><label for="s3c1">Navigate to key collection or service pages to see whether they have H1 tags and whether they are optimised.</label></li>
+          <li><input type="checkbox" id="s3c2"><label for="s3c2">Present these findings in the slide deck, using multiple examples from different collection/service pages as well as the homepage.</label></li>
+          <li><input type="checkbox" id="s3c3"><label for="s3c3">Look at the meta titles and meta descriptions — check whether they are implemented and have been optimised.</label></li>
+          <li><input type="checkbox" id="s3c4"><label for="s3c4">Present these findings in the slide deck, using multiple examples from different collection/service pages as well as the homepage.</label></li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Specialist Tip</strong>
+        If you are unsure whether a H1 tag is optimised or not, copy and paste it into Google Images and see what comes up. If the photos that appear reflect the product offering then it is most likely okay. Be critical with this step however — ensure that the photos match their specific niche.
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">🔍</span> What to Check</h3>
+        <ul style="margin-top: 12px; padding-left: 18px;">
+          <li><strong>Meta titles</strong> — [your criteria for flagging issues, e.g. length, missing, duplicate]</li>
+          <li><strong>Meta descriptions</strong> — [your criteria]</li>
+          <li><strong>Keyword alignment</strong> — [how you assess relevance]</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="section" id="step4">
+      <div class="section-header">
+        <div class="section-tag">Step 04</div>
+        <h2>On Page</h2>
+        <p>How to review and present on-page optimisation opportunities — headings, content, internal linking, image alt text, and anything else that lives on the page itself.</p>
+      </div>
+
+      <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;margin-bottom:24px;">
+        <iframe src="https://www.loom.com/embed/e344f21736e74640acbf5b04d3ab0ba0" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">📋</span> Step Checklist</h3>
+        <ul class="checklist" id="checklist-step4">
+          <li><input type="checkbox" id="s4c1"><label for="s4c1">Look at content on the homepage and collection/service pages — identify lean or unhelpful content.</label></li>
+          <li><input type="checkbox" id="s4c2"><label for="s4c2">Note these opportunities in the slide deck, ensuring to highlight the content in question and explain why the content isn't optimal.</label></li>
+          <li><input type="checkbox" id="s4c3"><label for="s4c3">Identify opportunities for internal linking.</label></li>
+          <li><input type="checkbox" id="s4c4"><label for="s4c4">Note these opportunities in the slide deck, ensuring to highlight the internal linking opportunities in question and explain why internal linking is a must.</label></li>
+          <li><input type="checkbox" id="s4c5"><label for="s4c5">Look into their blog content (depending on the industry) — cross-reference with Ahrefs to see whether there is an opportunity to expand and optimise their blogs to increase traffic.</label></li>
+          <li><input type="checkbox" id="s4c6"><label for="s4c6">If relevant, look through homepage content (preliminary tech audit) — identify quick wins to boost their homepage authority and customer retention.</label></li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Specialist Tip</strong>
+        Use example screenshots from our clients (niche-specific) to illustrate what the content should look like. This helps us look like professionals in the space, allows us to show off a client, as well as verify the issue.
+      </div>
+
+
+    </div>
+
+    <!-- TEMPLATES -->
+    <div class="section" id="templates">
+      <div class="section-header">
+        <div class="section-tag">Resources</div>
+        <h2>Opportunity Briefs</h2>
+        <p>Example opportunity briefs for each category. Use these as a reference when writing up findings in the deck — adapt the language to suit the client's level of SEO knowledge.</p>
+      </div>
+
+      <!-- Tab Nav -->
+      <div class="brief-tabs">
+        <button class="brief-tab active" onclick="switchBriefTab('technical', this)">Technical Findings</button>
+        <button class="brief-tab" onclick="switchBriefTab('metadata', this)">Meta Data</button>
+        <button class="brief-tab" onclick="switchBriefTab('onpage', this)">On Page</button>
+      </div>
+
+      <!-- TECHNICAL TAB -->
+      <div class="brief-panel active" id="brief-technical">
+
+        <div class="brief-card">
+          <div class="brief-card-label">Organic Traffic & Competitor Traffic</div>
+          <p>Although <span class="blank"></span> dominates the reusable cup space, key competitors are still finding room to grow — most noticeably <span class="blank"></span>.</p>
+          <p>Over the past 5 years you have fluctuated between <span class="blank"></span>–<span class="blank"></span>k estimated organic traffic per month, currently trending in the <span class="blank"></span> of that range.</p>
+          <p>Over the same timeframe <span class="blank"></span> has grown from roughly <span class="blank"></span>k traffic (around <span class="blank"></span>% below your <span class="blank"></span>k at the time), to over <span class="blank"></span>k, currently only <span class="blank"></span>% below your <span class="blank"></span>k.</p>
+          <p>This highlights how although you have achieved impressive growth over the past 5 years, a recent stagnation has allowed key competitors to encroach on your market share.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Client Keyword Growth Opportunity (Positions 4–10)</div>
+          <p>The opportunity here wouldn't be achieving page 1 rankings, but moving keywords already on page 1 to positions 1–3. When looking at the data, there are roughly <span class="blank"></span> keywords you currently rank for between positions 4–10 which total a search volume of <span class="blank"></span>.</p>
+          <p>This position uplift will be completed by firstly pulling apart the website through our intensive research process, and then put back together with Google's best practices, and AI search engines top of mind.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Lost & Declined Keywords</div>
+          <p>When we look at the keywords you were ranking for around your local peak back in <span class="blank"></span>, there are roughly <span class="blank"></span> lost or declined keywords.</p>
+          <p>Although some of these keywords may not be relevant, there is still a substantial amount of opportunity to regain, and rank these keywords between positions 1–3.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Page Traffic Distribution</div>
+          <p>When analysing your page traffic distribution there appears to be a large percentage of consumers landing on your homepage, as opposed to high-value selling or collection/service pages. As evident from the below chart roughly <span class="blank"></span>% of your traffic is coming through your homepage — ideally we want this number to be around the 20–30% mark.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Organic Traffic Brand Dominance</div>
+          <p>Firstly I want to bring attention to your organic traffic which is very brand dominated. This level of brand dominance can lead to a reliance on paid media, repeat purchases, and word of mouth. Our aim would be to maximise your organic non-branded channel, so your brand can continue growing without paying as much on Google or Meta ads.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Content Gap Analysis</div>
+          <p><span class="blank"></span> has a strong base performance within the organic search results, with many keywords ranking within the top 3 positions. However, there are many more opportunities for further improvements. I have included below a chart of your top 5 competitors (according to keyword overlap), and isolated the search to keywords you're ranking for between positions 11–50, or keywords you're not ranking for at all — that at least 2 of your competitors are ranking for on the first page.</p>
+          <p>As the data shows, there are roughly <span class="blank"></span> keywords that fit this criteria, constituting <span class="blank"></span> search volume a month. Obviously, this is a very large number; however, it does go to show that there are still a tonne of opportunities available to you.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Referring Domains</div>
+          <p>There seems to be a strong inverse correlation between organic traffic decline and an increase in referring domains, potentially alluding to unsuccessful backlinking efforts from a previous agency. This referring domain strategy is a textbook example of quantity over quality, leading to significant harm for your site.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Index & Crawlability (Filter Pages)</div>
+          <p>It is very important to ensure filter pages are indexed within Google. If Google is unable to crawl your page, they won't be able to display it to consumers who want the exact product you're selling.</p>
+          <p>You have a very impressive sub-category range; however, Google is unable to present these longer-tailed keywords to search terms that match them.</p>
+        </div>
+
+      </div>
+
+      <!-- META DATA TAB -->
+      <div class="brief-panel" id="brief-metadata">
+
+        <div class="brief-card">
+          <div class="brief-card-label">H1 Tags</div>
+          <p>H1 Tags are one of the most important factors that search engines look at when crawling your site. H1 Tags act as a technical bridge between what you're displaying on a specific page, and the consumers Google will match that page to.</p>
+          <p>As you can see you don't currently have a H1 Tag on your homepage, and un-optimised H1s on your collection pages — highlighting a strong opportunity for quick growth.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Product Meta Descriptions</div>
+          <p>Your product meta descriptions seem to pull from your product content as opposed to being optimised meta description-specific. With your current set up the descriptions read quite poorly, highlighting a further opportunity to help search engines understand and trust your site.</p>
+        </div>
+
+      </div>
+
+      <!-- ON PAGE TAB -->
+      <div class="brief-panel" id="brief-onpage">
+
+        <div class="brief-card">
+          <div class="brief-card-label">Content Expansion & Enrichment</div>
+          <p>With the huge shift towards AI-powered search, detailed, customer-focused, and story-backed content has never been more important. Building out rich content on each collection and filter page (if indexed), will help not only rank on Google, but on LLMs and GEOs as well.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Internal Linking</div>
+          <p>Once this content is built out, you will have a much greater opportunity to include internal linking within each category page. This helps strengthen and consolidate your site in Google's eyes, building trust and in turn increasing your rankings.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Collection Page Content</div>
+          <p>Collection page content is vital when aiming for high first page rankings on Google. Content should be written with a transactional/commercial intent, and help verify the specific product offering of the page.</p>
+          <p>Whilst most collection pages have minimal content, some pages have no content at all. Especially with the increasing relevance of AI, LLMs will be unwilling to reference a page if they are unable to understand it.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Collection Page Content Example</div>
+          <p>Collection page content is vital when aiming for high first page rankings on Google. Content should be written with a transactional/commercial intent, and help verify the specific product offering of the page.</p>
+          <p>Below I have included an example from one of our current clients — which provides a strong example of best practice.</p>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card-label">Blog Content & Positioning</div>
+          <p>Whilst you do have strong blog content, finding the blog pages on your site is extremely difficult. By presenting your blogs as a category in your main menu, or in your footer you will be able to increase the time people spend on your site, as well as trust with consumers. Additionally, optimising your blog posts presents itself as a strong opportunity given the amount of traffic your blogs bring in currently.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EXAMPLE DECKS -->
+    <div class="section" id="exampledecks">
+      <div class="section-header">
+        <div class="section-tag">Resources</div>
+        <h2>Example Decks</h2>
+        <p>A selection of past SEO Opportunities decks for reference. Use these to guide structure, tone, and formatting when building a new deck.</p>
+      </div>
+
+      <div class="template-grid">
+        <a class="template-card" href="https://www.canva.com/design/DAHBo3M7OE0/KNcwT6m4IN5B3d4ghMTXsg/edit?utm_content=DAHBo3M7OE0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">📑</div>
+          <div class="t-title">Cadelle Leather</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+        <a class="template-card" href="https://www.canva.com/design/DAG4bqE02eg/GpLs0EbqR0rIfCvxXkbwfQ/edit?utm_content=DAG4bqE02eg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">📑</div>
+          <div class="t-title">A Emery</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+        <a class="template-card" href="https://www.canva.com/design/DAHBiwgRkeE/_HOw7h6FHqPzAT4EuBbkDw/edit?utm_content=DAHBiwgRkeE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">📑</div>
+          <div class="t-title">KeepCup</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+        <a class="template-card" href="https://www.canva.com/design/DAG-5ZNsVXE/GnzD6dLJJFi7IeuI77cwhQ/edit?utm_content=DAG-5ZNsVXE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">📑</div>
+          <div class="t-title">Car Mods Australia</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+        <a class="template-card" href="https://www.canva.com/design/DAG5qUVa5ME/SbW_FXCUEZuoPOM5cSle9Q/edit?utm_content=DAG5qUVa5ME&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">📑</div>
+          <div class="t-title">Triumph</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- MASTER TEMPLATE -->
+    <div class="section" id="mastertemplate">
+      <div class="section-header">
+        <div class="section-tag">Resources</div>
+        <h2>Master Template</h2>
+        <p>The blank SEO Opportunities deck to copy from when starting a new client. Always duplicate this — never edit the original.</p>
+      </div>
+
+      <div class="template-grid">
+        <a class="template-card" href="https://www.canva.com/design/DAHBz4PnmF4/GBoE05ihq5ItZQRX59kndw/edit?utm_content=DAHBz4PnmF4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">
+          <div class="t-icon">🎨</div>
+          <div class="t-title">SEO Opportunities — Master Template</div>
+          <div class="t-desc">Open in Canva →</div>
+        </a>
+      </div>
+
+      <div class="tip-box" style="margin-top: 20px;">
+        <strong>💡 Important</strong>
+        Always make a copy of this deck before editing. Go to File → Make a copy in Canva, rename it with the client name, and work from there.
+      </div>
+    </div>
+
+    <div class="section" id="tools">
+      <div class="section-header">
+        <div class="section-tag">Resources</div>
+        <h2>Tools & Access</h2>
+        <p>Everything you need access to in order to run this process. If you're missing any of these, speak to [your manager's name / IT contact].</p>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">🔑</span> Tools You'll Need</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t1"><label for="t1"><strong>[Tool Name]</strong> — used for: [purpose]. Access via: [how to get access]</label></li>
+          <li><input type="checkbox" id="t2"><label for="t2"><strong>[Tool Name]</strong> — used for: [purpose]. Access via: [how to get access]</label></li>
+          <li><input type="checkbox" id="t3"><label for="t3"><strong>[Tool Name]</strong> — used for: [purpose]. Access via: [how to get access]</label></li>
+          <li><input type="checkbox" id="t4"><label for="t4"><strong>Google Drive folder</strong> — location: <span class="mono-tag">[folder link or path]</span></label></li>
+          <li><input type="checkbox" id="t5"><label for="t5"><strong>Slide template</strong> — confirmed access to master template</label></li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <span class="info-icon">ℹ️</span>
+        <span>Add any notes about shared credentials, accounts to request, or who to contact for onboarding to specific platforms. Keep sensitive login details out of this document.</span>
+      </div>
+
+
+  </div><!-- /content -->
+</main>
+
+<script>
+  const sections = ['overview','step1','step2','step3','step4','templates','exampledecks','mastertemplate'];
+  const stepSections = ['step1','step2','step3','step4'];
+  const titles = {
+    overview: 'Introduction',
+    step1: 'Step 01 — Slide Deck Construction',
+    step2: 'Step 02 — Technical Findings',
+    step3: 'Step 03 — Meta Data',
+    step4: 'Step 04 — On Page',
+    templates: 'Opportunity Briefs',
+    exampledecks: 'Example Decks',
+    mastertemplate: 'Master Template'
+  };
+
+  let current = 0;
+
+  function goToSection(id) {
+    current = sections.indexOf(id);
+    updateView();
+  }
+
+  function navigate(dir) {
+    current = Math.max(0, Math.min(sections.length - 1, current + dir));
+    updateView();
+  }
+
+  function updateView() {
+    const id = sections[current];
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.remove('active');
+      if (a.dataset.section === id) a.classList.add('active');
+    });
+
+    document.getElementById('breadcrumb').textContent = titles[id];
+    document.getElementById('top-title').textContent =
+      id === 'overview' ? 'SEO Opportunities — Process Guide' : titles[id];
+
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === sections.length - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchBriefTab(tab, el) {
+    document.querySelectorAll('.brief-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.brief-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('brief-' + tab).classList.add('active');
+    el.classList.add('active');
+  }
+
+  // Nav links
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      goToSection(a.dataset.section);
+    });
+  });
+
+  // Checkbox state + progress
+  function updateProgress() {
+    const doneSteps = stepSections.filter(s => {
+      const checks = document.querySelectorAll(`#checklist-${s} input[type=checkbox]`);
+      return checks.length > 0 && Array.from(checks).every(c => c.checked);
+    });
+
+    doneSteps.forEach(s => {
+      const link = document.querySelector(`[data-section="${s}"]`);
+      if (link) link.classList.add('done');
+    });
+
+    stepSections.forEach(s => {
+      if (!doneSteps.includes(s)) {
+        const link = document.querySelector(`[data-section="${s}"]`);
+        if (link) link.classList.remove('done');
+      }
+    });
+
+    const pct = Math.round((doneSteps.length / stepSections.length) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = `${doneSteps.length} / 4`;
+  }
+
+  document.querySelectorAll('.checklist input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('li').classList.toggle('checked', cb.checked);
+      updateProgress();
+    });
+  });
+
+  // Restore from localStorage
+  document.querySelectorAll('.checklist input[type=checkbox]').forEach(cb => {
+    const saved = localStorage.getItem(cb.id);
+    if (saved === 'true') {
+      cb.checked = true;
+      cb.closest('li').classList.add('checked');
+    }
+    cb.addEventListener('change', () => {
+      localStorage.setItem(cb.id, cb.checked);
+    });
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
